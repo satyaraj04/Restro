@@ -41,6 +41,7 @@ app.use(function(req,res,next){
 app.use(campgroundsroutes);
 app.use(commentsroutes);
 app.use(authroutes);
-app.listen(process.env.Port || 3000,process.env.IP,function(){
+var port = process.env.PORT || 3000;
+app.listen(port,function(){
 	console.log("server has started");
 });
