@@ -3,14 +3,14 @@
 	<header class="jumbotron">
 		<div class="container">
  <h1>
-	Welcome to the Persona page!
+	Welcome to Diner's Bay!
 </h1>
 		<p>
-			Bunch Of Persona Stuff!
+			Bunch Of Handpicked Restaurants Near You!
 		</p>
 			
 		<p>
-			<a class="btn btn-primary btn-lg" href="/campgrounds/new">Post Persona Stuff</a>
+			<a class="btn btn-primary btn-lg" href="/campgrounds/new">Recommend A New Restaurant</a>
 		</p>
 		</div>
 </header>
@@ -23,6 +23,9 @@
 			<h4>
 			<%= campground.name %>
 		</h4>
+			<h5>
+				Place: <strong><%= campground.place %></strong>
+			</h5>
 			<p>
 				<a href="campgrounds/<%= campground._id %>" class="btn btn-primary">More Info</a>
 			</p>

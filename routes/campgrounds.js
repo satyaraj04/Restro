@@ -18,12 +18,13 @@ router.post("/campgrounds",middleware.isloggedin,function(req,res){
 	var name = req.body.name;
 	var price = req.body.price;
 	var img = req.body.image;
+	var place = req.body.place;
 	var description  = req.body.description
 	var author = {
 		id:req.user._id,
 		username:req.user.username
 	}
-	var newcampground = {name: name,img: img,description:description,author:author,price:price}
+	var newcampground = {name: name,img: img,description:description,author:author,price:price,place:place}
 	// campgrounds.push(newcampground);
 // 	creating a new campground and saving it to the database instead of saving it to an array
 	Campground.create(newcampground,function(err,createdpost){
