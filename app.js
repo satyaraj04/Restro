@@ -14,7 +14,7 @@ var campgroundsroutes = require("./routes/campgrounds"),
 	commentsroutes    = require("./routes/comments"),
 	authroutes        = require("./routes/auth");
 	
-mongoose.connect("mongodb+srv://Pranav:pranav@2001@pranav.dlq3w.mongodb.net/vidGame_app?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://Pranav:pranav@2001@pranav.dlq3w.mongodb.net/diner's_bay?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyparser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 app.use(express.static(__dirname + "/public"))
