@@ -12,7 +12,8 @@ var mongoose = require("mongoose"),
 	seeddb = require("./seeds");
 var campgroundsroutes = require("./routes/campgrounds"),
 	commentsroutes    = require("./routes/comments"),
-	authroutes        = require("./routes/auth");
+	authroutes        = require("./routes/auth"),
+	reviewroutes      = require("./routes/review")
 	
 mongoose.connect("mongodb+srv://Pranav:pranav@2001@pranav.dlq3w.mongodb.net/diner's_bay?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyparser.urlencoded({extended: true}));
@@ -41,6 +42,7 @@ app.use(function(req,res,next){
 app.use(campgroundsroutes);
 app.use(commentsroutes);
 app.use(authroutes);
+app.use("/campgrounds/:id/reviews", reviewroutes);
 var port = process.env.PORT || 3000;
 app.listen(port,function(){
 	console.log("server has started");

@@ -1,8 +1,24 @@
 var express = require("express");
 var router  = express.Router();
 var Campground = require("../models/campgrounds");
+var Review = require("../models/review");
 var middleware = require("../middleware");
 router.get("/campgrounds",function(req,res){
+	if(req.query.search){
+		const regex = new RegExp(escapeRegex(req.query.search),'gi');
+		Campground.find({$or: [{name: regex,}, {place: regex}]}, function(err, allcampgrounds){
+		if(err){
+			console.log(err);
+		}else{
+			if(allcampgrounds.length<1){
+				req.flash("error","post not found!");
+				 return res.redirect("back");
+			}
+			res.render("campgrounds/campgrounds",{campgrounds:allcampgrounds,currentuser:req.user});
+			
+		}
+	});
+	}else{
 // 	get all components from the DB
 	Campground.find({},function(err,allcampgrounds){
 		if(err){
@@ -12,6 +28,7 @@ router.get("/campgrounds",function(req,res){
 			
 		}
 	});
+	}
 	// res.render("campgrounds",{campgrounds:campgrounds});
 });
 router.post("/campgrounds",middleware.isloggedin,function(req,res){
@@ -44,7 +61,10 @@ router.get("/campgrounds/new",middleware.isloggedin,function(req,res){
 // show route adding more info about the specific image
 router.get("/campgrounds/:id",function(req,res){
 // 	find the campground with provided id 
-	Campground.findById(req.params.id).populate("comments").exec(function(err,foundpost){
+	Campground.findById(req.params.id).populate("comments").populate({
+		path:"reviews",
+		options:{sort:{createdAt:-1}}
+	}).exec(function(err,foundpost){
 		if(err){
 			console.log(err);
 		}else{
@@ -65,6 +85,7 @@ router.get("/campgrounds/:id/edit",middleware.checkingauthorization,function(req
 });
 // update campground route
 router.put("/campgrounds/:id",middleware.checkingauthorization,function(req,res){
+	delete req.body.campground.rating;
 // 	find and update the campground
 	Campground.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedcampground){
 		if(err){
@@ -81,7 +102,23 @@ router.delete("/campgrounds/:id",middleware.checkingauthorization,function(req,r
 		if(err){
 			res.redirect("/campgrounds");
 		}else{
-				res.redirect("/campgrounds");
+			  Comment.remove({"_id": {$in: campground.comments}}, function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.redirect("/campgrounds");
+                }
+                // deletes all reviews associated with the campground
+                Review.remove({"_id": {$in: campground.reviews}}, function (err) {
+                    if (err) {
+                        console.log(err);
+                        return res.redirect("/campgrounds");
+                    }
+                    //  delete the campground
+                    campground.remove();
+                    req.flash("success", "post deleted successfully!");
+                    res.redirect("/campgrounds");
+                });
+            });
 		}
 	});
 });
@@ -92,4 +129,7 @@ router.delete("/campgrounds/:id",middleware.checkingauthorization,function(req,r
 // 	}
 // 	res.redirect("/login");
 // }
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 module.exports=router;

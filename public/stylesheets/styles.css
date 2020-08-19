@@ -13,3 +13,6 @@
 .delete-comment{
 	display:inline;
 }
+.checked {
+    color: orange;
+}
