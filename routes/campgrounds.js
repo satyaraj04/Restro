@@ -1,6 +1,7 @@
 var express = require("express");
 var router  = express.Router();
 var Campground = require("../models/campgrounds");
+var Comment = require("../models/comments");
 var Review = require("../models/review");
 var middleware = require("../middleware");
 router.get("/campgrounds",function(req,res){
@@ -98,7 +99,7 @@ router.put("/campgrounds/:id",middleware.checkingauthorization,function(req,res)
 });
 // destroy campground route
 router.delete("/campgrounds/:id",middleware.checkingauthorization,function(req,res){
-	Campground.findByIdAndRemove(req.params.id,function(err){
+	Campground.findById(req.params.id,function(err,campground){
 		if(err){
 			res.redirect("/campgrounds");
 		}else{
