@@ -54,9 +54,9 @@
                         <em>(total reviews: <%= campground.reviews.length %>)</em>
                     </p>
                     <p>
-                        Current campground rating: <strong><%= campground.rating.toFixed(2) %></strong>
+                        Current Restaurant rating: <strong><%= campground.rating.toFixed(2) %></strong>
                     </p>
-                    <p>Latest reviews for this campground:</p>
+                    <p>Latest reviews for this restaurant:</p>
                     <hr style="margin-top: 0;">
                     <% campground.reviews.slice(0, 5).forEach(function(review){ %>
                     <div class="row">
