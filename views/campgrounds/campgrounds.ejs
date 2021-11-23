@@ -1,58 +1,58 @@
 <%- include("../partials/header") %>
-<div class="container">
-	<header class="jumbotron">
-		<div class="container">
- <h1>
-	Welcome to Diner's Bay!
-</h1>
-		<p>
-			Bunch Of Handpicked Restaurants Near You!
-		</p>
-			
-		<p>
-			<a class="btn btn-primary btn-lg" href="/campgrounds/new">Recommend A New Restaurant</a>
-		</p>
-			<div>
-				<form action="/campgrounds" method="get" class="form-inline">
-					<div class="form-group">
-						<input type="text" name="search" placeholder="search for restaurants" class="form-control">
-						<input type="submit" value="search" class="btn btn-md btn-warning">
-					</div>
-			</form>
-			</div>
-		</div>
-</header>
-	<div class="row text-center" style="display:flex; flex-wrap: wrap;">
-		<% campgrounds.forEach(function(campground){ %>
-	<div class="col-md-3 col-sm-6">
-		<div class="thumbnail">
-		  <img src="<%= campground.img %>">
-		<div class="caption">
-			<h4>
-			<%= campground.name %>
-		</h4>
-			
-			<h5>
-				Place: <strong><%= campground.place %></strong>
-			</h5>
-			        <% if (campground.rating === 0) { %>
-                    <em>No reviews yet.</em>
-                    <% } else { %>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star <% if (campground.rating > 1.5) { %> checked <% } %>"></span>
-                    <span class="fa fa-star <% if (campground.rating > 2.5) { %> checked <% } %>"></span>
-                    <span class="fa fa-star <% if (campground.rating > 3.5) { %> checked <% } %>"></span>
-                    <span class="fa fa-star <% if (campground.rating > 4.5) { %> checked <% } %>"></span>
-                    <% } %>
-			</div>
-				<p>
-				<a href="campgrounds/<%= campground._id %>" class="btn btn-primary">More Info</a>
-			</p>
-		</div>
-	</div>
-<% }); %>
-</div>
-</div>
+    <div class="container">
+        <header class="jumbotron">
+            <div class="container">
+                <h1>
+                    Welcome to Diner's Bay!
+                </h1>
+                <p>
+                    Bunch Of Handpicked Restaurants Near You!
+                </p>
+
+                <p>
+                    <a class="btn btn-primary btn-lg" href="/campgrounds/new">Recommend A New Restaurant</a>
+                </p>
+                <div>
+                    <form action="/campgrounds" method="get" class="form-inline">
+                        <div class="form-group">
+                            <input type="text" name="search" placeholder="search for restaurants" class="form-control">
+                            <input type="submit" value="search" class="btn btn-md btn-warning">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+            <% campgrounds.forEach(function(campground){ %>
+                <div class="col-md-3 col-sm-6">
+                    <div class="thumbnail">
+                        <img src="<%= campground.img %>">
+                        <div class="caption">
+                            <h4>
+                                <%= campground.name %>
+                            </h4>
+
+                            <h5>
+                                Place: <strong><%= campground.place %></strong>
+                            </h5>
+                            <% if (campground.rating === 0) { %>
+                                <em>No reviews yet.</em>
+                                <% } else { %>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star <% if (campground.rating > 1.5) { %> checked <% } %>"></span>
+                                    <span class="fa fa-star <% if (campground.rating > 2.5) { %> checked <% } %>"></span>
+                                    <span class="fa fa-star <% if (campground.rating > 3.5) { %> checked <% } %>"></span>
+                                    <span class="fa fa-star <% if (campground.rating > 4.5) { %> checked <% } %>"></span>
+                                    <% } %>
+                        </div>
+                        <p>
+                            <a href="campgrounds/<%= campground._id %>" class="btn btn-primary">More Info</a>
+                        </p>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+    </div>
 
 
-<%- include("../partials/footer") %>
+    <%- include("../partials/footer") %>
